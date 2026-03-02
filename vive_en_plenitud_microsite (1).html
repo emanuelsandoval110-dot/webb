@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Vive en Plenitud · Sersocial</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=DM+Sans:wght@300;400;500;700&display=swap" rel="stylesheet">
+<style>
+* { margin:0; padding:0; box-sizing:border-box; }
+:root {
+  --azul:#0F2744;--azul-med:#1A3F6F;--azul-vivo:#2563A8;
+  --naranja:#E87722;--naranja-cl:#F4A05A;
+  --dorado:#C9A84C;--dorado-cl:#E8D08A;
+  --platino:#C8D5E0;--blanco:#FFFFFF;--gris-f:#F4F7FB;--texto:#2D3748;
+}
+html{scroll-behavior:smooth}
+body{font-family:'DM Sans',sans-serif;background:var(--gris-f);color:var(--texto);overflow-x:hidden}
+.hero{min-height:100vh;background:linear-gradient(160deg,#050E1A 0%,var(--azul) 50%,#163360 100%);display:flex;flex-direction:column;align-items:center;justify-content:center;padding:60px 24px 100px;position:relative;overflow:hidden}
+.ring{position:absolute;border-radius:50%;border:1px solid rgba(201,168,76,0.1);pointer-events:none}
+.ring-1{width:600px;height:600px;top:-200px;right:-200px}
+.ring-2{width:900px;height:900px;top:-400px;right:-400px}
+.ring-3{width:400px;height:400px;bottom:-150px;left:-150px;border-color:rgba(232,119,34,0.08)}
+.glow-orb{position:absolute;border-radius:50%;filter:blur(80px);pointer-events:none}
+.orb-1{width:400px;height:400px;background:rgba(37,99,168,0.25);top:-100px;right:-100px}
+.orb-2{width:300px;height:300px;background:rgba(232,119,34,0.15);bottom:0;left:0}
+.hero-badge{display:inline-flex;align-items:center;gap:8px;border:1px solid rgba(201,168,76,0.4);border-radius:30px;padding:7px 20px;color:var(--dorado-cl);font-size:11px;letter-spacing:3px;text-transform:uppercase;margin-bottom:32px;backdrop-filter:blur(4px);background:rgba(201,168,76,0.06);animation:fadeDown 1s ease both}
+.hero-logo{display:flex;align-items:center;gap:14px;margin-bottom:40px;animation:fadeDown 1s ease both 0.1s}
+.logo-box{width:54px;height:54px;background:linear-gradient(135deg,var(--naranja),var(--dorado));border-radius:16px;display:flex;align-items:center;justify-content:center;font-size:26px;box-shadow:0 8px 30px rgba(232,119,34,0.4)}
+.logo-name{font-size:22px;font-weight:700;color:var(--blanco);letter-spacing:1px}
+.logo-name em{color:var(--naranja-cl);font-style:normal}
+.hero h1{font-family:'Playfair Display',serif;font-size:clamp(42px,6vw,72px);font-weight:700;color:var(--blanco);text-align:center;line-height:1.1;max-width:780px;margin-bottom:12px;animation:fadeDown 1s ease both 0.2s}
+.hero h1 em{font-style:italic;color:var(--naranja-cl)}
+.hero-sub{font-size:17px;color:var(--platino);text-align:center;max-width:560px;line-height:1.7;margin-bottom:64px;animation:fadeDown 1s ease both 0.3s}
+.selector-label{font-size:11px;letter-spacing:3px;text-transform:uppercase;color:var(--dorado);text-align:center;margin-bottom:28px;animation:fadeDown 1s ease both 0.4s}
+.cards-row{display:flex;gap:20px;flex-wrap:wrap;justify-content:center;width:100%;max-width:1080px;animation:fadeUp 1s ease both 0.5s}
+.sel-card{flex:1;min-width:280px;max-width:320px;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.1);border-radius:24px;padding:36px 28px;cursor:pointer;transition:all 0.4s cubic-bezier(0.23,1,0.32,1);position:relative;overflow:hidden;backdrop-filter:blur(10px)}
+.sel-card::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,var(--ca),var(--cb));opacity:0;transition:opacity 0.4s;border-radius:24px}
+.sel-card:hover,.sel-card.active{border-color:transparent;transform:translateY(-8px);box-shadow:0 30px 60px rgba(0,0,0,0.4)}
+.sel-card:hover::before,.sel-card.active::before{opacity:1}
+.sel-card.c1{--ca:#1e4a8a;--cb:#0f2744}
+.sel-card.c2{--ca:#b85e10;--cb:#7a3a00}
+.sel-card.c3{--ca:#2d7a5e;--cb:#1a4a38}
+.card-inner{position:relative;z-index:1}
+.card-num{font-family:'Playfair Display',serif;font-size:56px;font-weight:700;line-height:1;margin-bottom:16px;background:linear-gradient(135deg,var(--dorado),var(--dorado-cl));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.card-tag{display:inline-block;font-size:10px;letter-spacing:2px;text-transform:uppercase;padding:4px 12px;border-radius:20px;margin-bottom:14px;font-weight:700}
+.c1 .card-tag{background:rgba(37,99,168,0.3);color:#7EB8F7;border:1px solid rgba(37,99,168,0.4)}
+.c2 .card-tag{background:rgba(232,119,34,0.3);color:var(--naranja-cl);border:1px solid rgba(232,119,34,0.4)}
+.c3 .card-tag{background:rgba(45,154,110,0.3);color:#7AE0B8;border:1px solid rgba(45,154,110,0.4)}
+.card-title{font-family:'Playfair Display',serif;font-size:20px;font-weight:600;color:var(--blanco);margin-bottom:10px;line-height:1.3}
+.card-ages{font-size:13px;color:rgba(255,255,255,0.6);line-height:1.6}
+.card-ages strong{color:rgba(255,255,255,0.9)}
+.card-arrow{margin-top:24px;width:40px;height:40px;border-radius:50%;background:rgba(255,255,255,0.1);display:flex;align-items:center;justify-content:center;font-size:18px;transition:all 0.3s;border:1px solid rgba(255,255,255,0.15)}
+.sel-card:hover .card-arrow,.sel-card.active .card-arrow{background:rgba(255,255,255,0.2);transform:translateX(4px)}
+.scroll-cue{position:absolute;bottom:32px;left:50%;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:8px;color:rgba(255,255,255,0.3);font-size:11px;letter-spacing:2px;text-transform:uppercase;animation:float 2s ease-in-out infinite}
+.content-section{display:none;padding:80px 24px;animation:fadeUp 0.6s ease both}
+.content-section.visible{display:block}
+.content-wrap{max-width:980px;margin:0 auto}
+.sec-header{display:flex;align-items:flex-start;gap:28px;margin-bottom:56px;padding-bottom:40px;border-bottom:1px solid rgba(0,0,0,0.08)}
+.sec-icon-big{width:80px;height:80px;flex-shrink:0;border-radius:24px;display:flex;align-items:center;justify-content:center;font-size:36px;box-shadow:0 12px 36px rgba(0,0,0,0.15)}
+.s1 .sec-icon-big{background:linear-gradient(135deg,var(--azul-vivo),var(--azul))}
+.s2 .sec-icon-big{background:linear-gradient(135deg,var(--naranja),#c0631a)}
+.s3 .sec-icon-big{background:linear-gradient(135deg,#2D9D6E,#1a6048)}
+.sec-supertitle{font-size:11px;letter-spacing:3px;text-transform:uppercase;font-weight:700;margin-bottom:8px}
+.s1 .sec-supertitle{color:var(--azul-vivo)}
+.s2 .sec-supertitle{color:var(--naranja)}
+.s3 .sec-supertitle{color:#2D9D6E}
+.sec-title{font-family:'Playfair Display',serif;font-size:clamp(28px,4vw,42px);font-weight:700;color:var(--azul);line-height:1.2;margin-bottom:12px}
+.sec-title em{font-style:italic;color:var(--naranja)}
+.sec-desc{font-size:16px;color:#5A6A7E;line-height:1.7;max-width:600px}
+.steps-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:20px;margin-bottom:48px}
+.step-box{background:var(--blanco);border-radius:20px;padding:28px 24px;box-shadow:0 4px 20px rgba(0,0,0,0.06);border:1px solid rgba(0,0,0,0.05);transition:transform 0.3s,box-shadow 0.3s;position:relative;overflow:hidden}
+.step-box:hover{transform:translateY(-4px);box-shadow:0 12px 36px rgba(0,0,0,0.1)}
+.step-box::after{content:'';position:absolute;top:0;left:0;width:4px;height:100%;border-radius:4px 0 0 4px}
+.s1 .step-box::after{background:linear-gradient(180deg,var(--azul-vivo),var(--azul))}
+.s2 .step-box::after{background:linear-gradient(180deg,var(--naranja),#c0631a)}
+.s3 .step-box::after{background:linear-gradient(180deg,#2D9D6E,#1a6048)}
+.step-box-num{font-family:'Playfair Display',serif;font-size:42px;font-weight:700;line-height:1;margin-bottom:12px;opacity:0.1;color:var(--azul)}
+.step-box-icon{font-size:28px;margin-bottom:12px;display:block}
+.step-box h3{font-size:15px;font-weight:700;color:var(--azul);margin-bottom:8px}
+.step-box p{font-size:13px;color:#6B7A8D;line-height:1.6}
+.step-box ul{list-style:none;margin-top:10px}
+.step-box ul li{font-size:12px;color:#6B7A8D;padding:4px 0 4px 16px;position:relative;line-height:1.5}
+.step-box ul li::before{content:'›';position:absolute;left:2px;font-size:16px;line-height:1.2}
+.s1 .step-box ul li::before{color:var(--azul-vivo)}
+.s2 .step-box ul li::before{color:var(--naranja)}
+.s3 .step-box ul li::before{color:#2D9D6E}
+.benefits-row{display:flex;gap:16px;flex-wrap:wrap;margin-bottom:48px}
+.benefit-pill{flex:1;min-width:200px;background:var(--blanco);border-radius:16px;padding:24px 20px;text-align:center;box-shadow:0 4px 20px rgba(0,0,0,0.06);border:1px solid rgba(0,0,0,0.05)}
+.benefit-pill .bp-icon{font-size:32px;margin-bottom:10px;display:block}
+.benefit-pill h4{font-size:14px;font-weight:700;color:var(--azul);margin-bottom:6px}
+.benefit-pill p{font-size:12px;color:#6B7A8D;line-height:1.5}
+.tip-box{border-radius:16px;padding:24px 28px;display:flex;gap:16px;align-items:flex-start;margin-bottom:48px}
+.s1 .tip-box{background:linear-gradient(135deg,#EBF2FF,#F0F6FF);border:1px solid rgba(37,99,168,0.2)}
+.s2 .tip-box{background:linear-gradient(135deg,#FFF3E8,#FFF8F0);border:1px solid rgba(232,119,34,0.2)}
+.s3 .tip-box{background:linear-gradient(135deg,#E8F8F2,#F0FBF6);border:1px solid rgba(45,157,110,0.2)}
+.tip-box .tip-icon{font-size:28px;flex-shrink:0}
+.tip-box p{font-size:14px;line-height:1.7;color:#4A5568}
+.tip-box p strong{color:var(--azul)}
+.contact-cta{border-radius:24px;padding:44px;text-align:center;position:relative;overflow:hidden}
+.s1 .contact-cta{background:linear-gradient(135deg,var(--azul) 0%,#163360 100%)}
+.s2 .contact-cta{background:linear-gradient(135deg,#8a3a00 0%,var(--naranja) 100%)}
+.s3 .contact-cta{background:linear-gradient(135deg,#1a6048 0%,#2D9D6E 100%)}
+.contact-cta h3{font-family:'Playfair Display',serif;font-size:26px;color:var(--blanco);margin-bottom:10px}
+.contact-cta p{font-size:15px;color:rgba(255,255,255,0.7);margin-bottom:28px;line-height:1.6}
+.cta-btn{display:inline-block;background:var(--blanco);font-size:14px;font-weight:700;padding:14px 36px;border-radius:50px;text-decoration:none;transition:transform 0.2s,box-shadow 0.2s;box-shadow:0 8px 24px rgba(0,0,0,0.2);margin:6px}
+.s1 .cta-btn{color:var(--azul)}
+.s2 .cta-btn{color:#8a3a00}
+.s3 .cta-btn{color:#1a6048}
+.cta-btn:hover{transform:translateY(-2px);box-shadow:0 14px 36px rgba(0,0,0,0.3)}
+.back-btn{display:inline-flex;align-items:center;gap:8px;background:none;border:1px solid rgba(0,0,0,0.12);border-radius:30px;padding:10px 22px;font-family:'DM Sans',sans-serif;font-size:13px;color:#6B7A8D;cursor:pointer;margin-bottom:36px;transition:all 0.2s}
+.back-btn:hover{border-color:var(--azul);color:var(--azul)}
+.sec-divider{height:1px;background:linear-gradient(90deg,transparent,rgba(0,0,0,0.08),transparent);margin:40px 0}
+.benefits-label{font-size:13px;letter-spacing:3px;text-transform:uppercase;font-weight:700;margin-bottom:20px}
+.s1 .benefits-label{color:var(--azul-vivo)}
+.s2 .benefits-label{color:var(--naranja)}
+.s3 .benefits-label{color:#2D9D6E}
+footer{background:var(--azul);padding:40px 24px;text-align:center}
+footer p{font-size:13px;color:rgba(255,255,255,0.4);line-height:1.8}
+footer strong{color:var(--naranja-cl)}
+@keyframes fadeDown{from{opacity:0;transform:translateY(-24px)}to{opacity:1;transform:translateY(0)}}
+@keyframes fadeUp{from{opacity:0;transform:translateY(32px)}to{opacity:1;transform:translateY(0)}}
+@keyframes float{0%,100%{transform:translateX(-50%) translateY(0)}50%{transform:translateX(-50%) translateY(-8px)}}
+@media(max-width:600px){.sec-header{flex-direction:column}.contact-cta{padding:32px 24px}.cards-row{flex-direction:column;align-items:center}.sel-card{max-width:100%}}
+</style>
+</head>
+<body>
+
+<section class="hero" id="hero">
+  <div class="ring ring-1"></div><div class="ring ring-2"></div><div class="ring ring-3"></div>
+  <div class="glow-orb orb-1"></div><div class="glow-orb orb-2"></div>
+  <div class="hero-badge">✦ Programa Corporativo · Sersocial ✦</div>
+  <div class="hero-logo">
+    <div class="logo-box">🌿</div>
+    <div class="logo-name">Ser<em>social</em></div>
+  </div>
+  <h1>Vive en <em>Plenitud</em></h1>
+  <p class="hero-sub">Orientación y acompañamiento para colaboradores en etapa de pre-pensión. Selecciona tu perfil y descubre el camino que te corresponde.</p>
+  <p class="selector-label">✦ ¿Cuál es tu perfil? ✦</p>
+  <div class="cards-row">
+    <div class="sel-card c1" onclick="showSection('s1', this)">
+      <div class="card-inner">
+        <div class="card-num">01</div>
+        <span class="card-tag">En edad de pensión</span>
+        <div class="card-title">Ya cumpliste la edad de pensión</div>
+        <div class="card-ages"><strong>Hombres:</strong> 62 años o más<br><strong>Mujeres:</strong> 57 años o más</div>
+        <div class="card-arrow">→</div>
+      </div>
+    </div>
+    <div class="sel-card c2" onclick="showSection('s2', this)">
+      <div class="card-inner">
+        <div class="card-num">02</div>
+        <span class="card-tag">En edad del programa</span>
+        <div class="card-title">Estás próximo/a a la edad de pensión</div>
+        <div class="card-ages"><strong>Hombres:</strong> 59 – 61 años<br><strong>Mujeres:</strong> 54 – 56 años</div>
+        <div class="card-arrow">→</div>
+      </div>
+    </div>
+    <div class="sel-card c3" onclick="showSection('s3', this)">
+      <div class="card-inner">
+        <div class="card-num">03</div>
+        <span class="card-tag">Pre-pensionado/a</span>
+        <div class="card-title">Estás en fase de preparación</div>
+        <div class="card-ages"><strong>Hombres:</strong> 49 – 58 años<br><strong>Mujeres:</strong> 44 – 55 años</div>
+        <div class="card-arrow">→</div>
+      </div>
+    </div>
+  </div>
+  <div class="scroll-cue"><span>↓</span>ver mi información</div>
+</section>
+
+<!-- S1 -->
+<section class="content-section s1" id="section-s1">
+  <div class="content-wrap">
+    <button class="back-btn" onclick="goBack()">← Volver al inicio</button>
+    <div class="sec-header">
+      <div class="sec-icon-big">🏆</div>
+      <div class="sec-header-text">
+        <div class="sec-supertitle">Perfil 01 · En edad de pensión</div>
+        <h2 class="sec-title">¡Es tu <em>momento</em>!<br>Inicia tu proceso ahora</h2>
+        <p class="sec-desc">Ya cumpliste la edad requerida. Este es el inicio de un capítulo extraordinario. Sigue estos pasos para formalizar tu pensión de manera organizada y sin contratiempos.</p>
+      </div>
+    </div>
+    <div class="tip-box">
+      <span class="tip-icon">🌟</span>
+      <p><strong>¡Felicitaciones!</strong> Llegaste a este momento gracias a años de dedicación. El equipo de Talento Humano está listo para acompañarte en cada paso. No estás solo/a en este proceso.</p>
+    </div>
+    <div class="steps-grid">
+      <div class="step-box"><div class="step-box-num">01</div><span class="step-box-icon">📋</span><h3>Verifica tus semanas cotizadas</h3><p>Confirma que cumples con el mínimo requerido antes de radicar tu solicitud.</p><ul><li>Ingresa a Mi Colpensiones o a tu fondo privado.</li><li>Descarga tu historia laboral y verifica periodos.</li><li>Confirma régimen de transición si aplica.</li></ul></div>
+      <div class="step-box"><div class="step-box-num">02</div><span class="step-box-icon">📁</span><h3>Reúne tus documentos</h3><p>Ten listos todos los soportes antes de radicar para evitar demoras.</p><ul><li>Cédula de ciudadanía vigente.</li><li>Registro civil de nacimiento.</li><li>Documentos de beneficiarios (cónyuge, hijos).</li><li>Certificaciones laborales completas.</li></ul></div>
+      <div class="step-box"><div class="step-box-num">03</div><span class="step-box-icon">🏛️</span><h3>Radica tu solicitud de pensión</h3><p>Presenta formalmente tu solicitud ante el fondo al que estás afiliado/a.</p><ul><li>Solicita cita presencial o virtual.</li><li>Presenta todos los documentos completos.</li><li>Guarda el número de radicado.</li><li>El proceso puede tomar entre 4 y 8 meses.</li></ul></div>
+      <div class="step-box"><div class="step-box-num">04</div><span class="step-box-icon">🏢</span><h3>Coordina con Talento Humano</h3><p>Comunica tu decisión de retiro a Sersocial con suficiente anticipación.</p><ul><li>Agenda reunión (mínimo 3 meses antes).</li><li>Solicita certificación laboral para el fondo.</li><li>Coordina liquidación de prestaciones sociales.</li><li>Gestiona traslado de cesantías si aplica.</li></ul></div>
+      <div class="step-box"><div class="step-box-num">05</div><span class="step-box-icon">🏥</span><h3>Actualiza tu afiliación en salud</h3><p>Al pensionarte, tu afiliación a salud cambia. Prepárate.</p><ul><li>Notifica a tu EPS el cambio de estado.</li><li>El aporte de salud se descuenta de tu mesada.</li><li>Verifica cobertura de tus beneficiarios.</li></ul></div>
+      <div class="step-box"><div class="step-box-num">06</div><span class="step-box-icon">💼</span><h3>Planifica tus finanzas del retiro</h3><p>Prepara tu economía para este nuevo ciclo con información y orden.</p><ul><li>Conoce el valor estimado de tu mesada pensional.</li><li>Planifica tus gastos fijos y variables.</li><li>Consulta opciones de ahorro complementario.</li></ul></div>
+    </div>
+    <div class="sec-divider"></div>
+    <p class="benefits-label">Beneficios del programa para ti</p>
+    <div class="benefits-row">
+      <div class="benefit-pill"><span class="bp-icon">🧠</span><h4>Bienestar Psicológico</h4><p>Acompañamiento profesional para vivir esta transición con calma, propósito y positivismo.</p></div>
+      <div class="benefit-pill"><span class="bp-icon">🌱</span><h4>Proyecto de Vida</h4><p>Talleres para construir una vida activa, significativa y plena en el retiro.</p></div>
+      <div class="benefit-pill"><span class="bp-icon">⚖️</span><h4>Asesoramiento Legal</h4><p>Orientación sobre tus derechos, procesos y aspectos legales de tu pensión.</p></div>
+      <div class="benefit-pill"><span class="bp-icon">💰</span><h4>Educación Financiera</h4><p>Aprende a administrar tu mesada y planificar tu economía en este ciclo.</p></div>
+    </div>
+    <div class="contact-cta">
+      <h3>¿Listo/a para dar el primer paso?</h3>
+      <p>El equipo de Talento Humano está disponible para orientarte personalmente. ¡Escríbenos!</p>
+      <a href="mailto:esandoval@sersocial.org" class="cta-btn">Escribir a E. Sandoval →</a>
+      <a href="mailto:emiranda@sersocial.org" class="cta-btn">Escribir a E. Miranda →</a>
+    </div>
+  </div>
+</section>
+
+<!-- S2 -->
+<section class="content-section s2" id="section-s2">
+  <div class="content-wrap">
+    <button class="back-btn" onclick="goBack()">← Volver al inicio</button>
+    <div class="sec-header">
+      <div class="sec-icon-big">🌅</div>
+      <div class="sec-header-text">
+        <div class="sec-supertitle">Perfil 02 · En edad del programa</div>
+        <h2 class="sec-title">El retiro está <em>cerca</em>,<br>prepárate con tiempo</h2>
+        <p class="sec-desc">Estás a pocos años de pensionarte. Este es el momento ideal para ordenar tu información, resolver inquietudes y prepararte con calma para esta transición.</p>
+      </div>
+    </div>
+    <div class="tip-box">
+      <span class="tip-icon">💡</span>
+      <p><strong>¡Actúa ahora!</strong> Prepararte con 1 a 3 años de anticipación marca una gran diferencia. Podrás resolver inconsistencias, completar semanas faltantes y planificar tu economía sin afanes.</p>
+    </div>
+    <div class="steps-grid">
+      <div class="step-box"><div class="step-box-num">01</div><span class="step-box-icon">🔍</span><h3>Revisa tu historia laboral hoy</h3><p>Las inconsistencias se pueden corregir, pero toman tiempo. Identifícalas ahora.</p><ul><li>Verifica semanas cotizadas en tu fondo.</li><li>Identifica periodos sin reporte o errores.</li><li>Solicita correcciones con tiempo suficiente.</li></ul></div>
+      <div class="step-box"><div class="step-box-num">02</div><span class="step-box-icon">📅</span><h3>Proyecta tu fecha de pensión</h3><p>Calcula con precisión cuándo cumplirás todos los requisitos.</p><ul><li>Hombres: 62 años + 1.300 semanas cotizadas.</li><li>Mujeres: 57 años + 1.300 semanas cotizadas.</li><li>Solicita simulación de mesada a tu fondo.</li></ul></div>
+      <div class="step-box"><div class="step-box-num">03</div><span class="step-box-icon">📂</span><h3>Organiza tus documentos</h3><p>Empieza a reunir los soportes que necesitarás para el proceso.</p><ul><li>Registros civiles propios y de beneficiarios.</li><li>Certificaciones de empleos anteriores.</li><li>Documentos de trabajo informal si aplica.</li></ul></div>
+      <div class="step-box"><div class="step-box-num">04</div><span class="step-box-icon">💬</span><h3>Participa activamente en el programa</h3><p>Aprovecha todas las formaciones de Vive en Plenitud para prepararte integralmente.</p><ul><li>Asiste a sesiones de asesoramiento legal.</li><li>Participa en talleres de bienestar psicológico.</li><li>Inicia tu proyecto de vida para el retiro.</li></ul></div>
+      <div class="step-box"><div class="step-box-num">05</div><span class="step-box-icon">💳</span><h3>Planifica tus finanzas con anticipación</h3><p>Este es el mejor momento para ordenar tu economía pensando en el retiro.</p><ul><li>Reduce deudas antes de pensionarte.</li><li>Conoce el valor estimado de tu mesada.</li><li>Evalúa ahorro complementario (AFC, voluntario).</li></ul></div>
+      <div class="step-box"><div class="step-box-num">06</div><span class="step-box-icon">🧭</span><h3>Comunícate con Talento Humano</h3><p>Mantén informado al equipo de Sersocial para una transición ordenada.</p><ul><li>Informa tu proyección de retiro.</li><li>Conoce los beneficios de desvinculación que aplican.</li><li>Resuelve dudas sobre contrato y liquidación.</li></ul></div>
+    </div>
+    <div class="sec-divider"></div>
+    <p class="benefits-label">Beneficios del programa para ti</p>
+    <div class="benefits-row">
+      <div class="benefit-pill"><span class="bp-icon">🧠</span><h4>Bienestar Psicológico</h4><p>Prepárate emocionalmente para la transición laboral con acompañamiento profesional.</p></div>
+      <div class="benefit-pill"><span class="bp-icon">🌱</span><h4>Proyecto de Vida</h4><p>Diseña con tiempo tu nueva vida: hobbies, familia, voluntariado y propósito personal.</p></div>
+      <div class="benefit-pill"><span class="bp-icon">⚖️</span><h4>Asesoramiento Legal</h4><p>Entiende el marco legal de tu pensión y resuelve dudas con expertos.</p></div>
+      <div class="benefit-pill"><span class="bp-icon">💰</span><h4>Educación Financiera</h4><p>Talleres de planificación para llegar al retiro con solidez económica.</p></div>
+    </div>
+    <div class="contact-cta">
+      <h3>¿Tienes preguntas sobre tu proceso?</h3>
+      <p>El equipo de Talento Humano puede orientarte sobre tus opciones y próximos pasos. Estamos contigo.</p>
+      <a href="mailto:esandoval@sersocial.org" class="cta-btn">Hablar con E. Sandoval →</a>
+      <a href="mailto:emiranda@sersocial.org" class="cta-btn">Hablar con E. Miranda →</a>
+    </div>
+  </div>
+</section>
+
+<!-- S3 -->
+<section class="content-section s3" id="section-s3">
+  <div class="content-wrap">
+    <button class="back-btn" onclick="goBack()">← Volver al inicio</button>
+    <div class="sec-header">
+      <div class="sec-icon-big">🌿</div>
+      <div class="sec-header-text">
+        <div class="sec-supertitle">Perfil 03 · Pre-pensionado/a</div>
+        <h2 class="sec-title">Empieza a <em>construir</em><br>tu camino desde hoy</h2>
+        <p class="sec-desc">Aún tienes tiempo, y eso es una gran ventaja. Comenzar temprano te permite planificar con calma y llegar al retiro en las mejores condiciones posibles.</p>
+      </div>
+    </div>
+    <div class="tip-box">
+      <span class="tip-icon">🌱</span>
+      <p><strong>El tiempo es tu mayor aliado.</strong> Las personas que se preparan con 5 a 10 años de anticipación tienen una transición mucho más tranquila y satisfactoria. Pequeñas acciones hoy hacen una gran diferencia.</p>
+    </div>
+    <div class="steps-grid">
+      <div class="step-box"><div class="step-box-num">01</div><span class="step-box-icon">📊</span><h3>Conoce el estado de tu pensión hoy</h3><p>Tener claridad sobre tu situación actual es el primer paso para planificar bien.</p><ul><li>Consulta cuántas semanas tienes cotizadas.</li><li>Verifica que todos tus empleadores hayan reportado correctamente.</li><li>Identifica el régimen al que perteneces.</li></ul></div>
+      <div class="step-box"><div class="step-box-num">02</div><span class="step-box-icon">🗓️</span><h3>Proyecta tu fecha estimada de pensión</h3><p>Calcula cuántos años te quedan y qué necesitas hacer para llegar bien preparado/a.</p><ul><li>Simula tu mesada pensional en tu fondo.</li><li>Calcula semanas faltantes para cumplir el requisito.</li><li>Define si necesitas cotizar semanas adicionales.</li></ul></div>
+      <div class="step-box"><div class="step-box-num">03</div><span class="step-box-icon">💰</span><h3>Inicia tu planificación financiera</h3><p>Este es el momento ideal para tomar decisiones que impactarán positivamente tu retiro.</p><ul><li>Reduce o elimina deudas de manera progresiva.</li><li>Considera ahorro voluntario en fondo de pensiones.</li><li>Construye un fondo de emergencia.</li></ul></div>
+      <div class="step-box"><div class="step-box-num">04</div><span class="step-box-icon">🧠</span><h3>Trabaja en tu bienestar integral</h3><p>El retiro también es un cambio emocional. Prepárate desde ahora.</p><ul><li>Identifica actividades que le den sentido a tu vida fuera del trabajo.</li><li>Fortalece vínculos familiares y sociales.</li><li>Participa en los talleres de bienestar del programa.</li></ul></div>
+      <div class="step-box"><div class="step-box-num">05</div><span class="step-box-icon">🌟</span><h3>Diseña tu proyecto de vida</h3><p>¿Qué quieres hacer cuando te retires? Es el mejor momento para pensarlo.</p><ul><li>Explora pasiones, hobbies o proyectos postergados.</li><li>Considera voluntariado, emprendimiento o actividades culturales.</li><li>Define cómo quieres que sea tu día a día en el retiro.</li></ul></div>
+      <div class="step-box"><div class="step-box-num">06</div><span class="step-box-icon">📚</span><h3>Participa en las formaciones del programa</h3><p>Vive en Plenitud ofrece formaciones presenciales y virtuales diseñadas para ti.</p><ul><li>Talleres de educación financiera para el retiro.</li><li>Sesiones de asesoramiento legal sobre pensión.</li><li>Grupos de acompañamiento psicológico.</li><li>Talleres de proyecto de vida y propósito.</li></ul></div>
+    </div>
+    <div class="sec-divider"></div>
+    <p class="benefits-label">Beneficios del programa para ti</p>
+    <div class="benefits-row">
+      <div class="benefit-pill"><span class="bp-icon">🧠</span><h4>Bienestar Psicológico</h4><p>Construye desde hoy la fortaleza emocional para vivir el retiro con plenitud y propósito.</p></div>
+      <div class="benefit-pill"><span class="bp-icon">🌱</span><h4>Proyecto de Vida</h4><p>Tienes tiempo para diseñar el capítulo más auténtico y libre de tu vida.</p></div>
+      <div class="benefit-pill"><span class="bp-icon">⚖️</span><h4>Asesoramiento Legal</h4><p>Conoce tus derechos y el sistema pensional con tiempo de actuar y planificar.</p></div>
+      <div class="benefit-pill"><span class="bp-icon">💰</span><h4>Educación Financiera</h4><p>Aprende a construir solidez económica para llegar al retiro con tranquilidad.</p></div>
+    </div>
+    <div class="contact-cta">
+      <h3>¿Quieres saber más sobre el programa?</h3>
+      <p>Contáctanos y con gusto te orientamos sobre los recursos y formaciones disponibles en Vive en Plenitud.</p>
+      <a href="mailto:esandoval@sersocial.org" class="cta-btn">Escribir a E. Sandoval →</a>
+      <a href="mailto:emiranda@sersocial.org" class="cta-btn">Escribir a E. Miranda →</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <p><strong>Sersocial · Programa Vive en Plenitud</strong><br>
+  Talento Humano · esandoval@sersocial.org · emiranda@sersocial.org<br>
+  Todos los derechos reservados © 2025</p>
+</footer>
+
+<script>
+function showSection(id, card) {
+  document.querySelectorAll('.content-section').forEach(s => s.classList.remove('visible'));
+  document.querySelectorAll('.sel-card').forEach(c => c.classList.remove('active'));
+  document.getElementById('section-' + id).classList.add('visible');
+  card.classList.add('active');
+  setTimeout(() => {
+    document.getElementById('section-' + id).scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }, 100);
+}
+function goBack() {
+  document.querySelectorAll('.content-section').forEach(s => s.classList.remove('visible'));
+  document.querySelectorAll('.sel-card').forEach(c => c.classList.remove('active'));
+  document.getElementById('hero').scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+</script>
+</body>
+</html>
